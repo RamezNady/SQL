@@ -1,0 +1,107 @@
+
+JOIN:
+--INNER JOIN
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+JOIN  Customers ON Orders.CustomerID = Customers.CustomerID;
+
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN  Customers ON Orders.CustomerID = Customers.CustomerID;
+
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders,Customers
+WHERE Orders.CustomerID = Customers.CustomerID;
+
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM  ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+
+
+--LEFT JOIN
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT OUTER JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+
+--RIGHT JOIN
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT OUTER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID;
+
+
+--FULL OUTER JOIN
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+ORDER BY Customers.CustomerName;
+
+--CROSS JOIN
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+CROSS JOIN  Customers
+
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders, Customers
+
+===========================================================================
+--Advanced JOIN
+
+SELECT      Name, Gender, Salary, DepartmentName
+FROM        tblEmployee E
+LEFT JOIN   tblDepartment D
+ON          E.DepartmentId = D.Id
+WHERE       D.Id IS NULL
+
+
+SELECT         Name, Gender, Salary, DepartmentName
+FROM           tblEmployee E
+RIGHT JOIN     tblDepartment D
+ON             E.DepartmentId = D.Id
+WHERE          E.DepartmentId IS NULL
+
+
+SELECT         Name, Gender, Salary, DepartmentName
+FROM           tblEmployee E
+FULL JOIN      tblDepartment D
+ON             E.DepartmentId = D.Id
+WHERE          (E.DepartmentId IS NULL)  OR (D.Id IS NULL)
+
+
+===========================================================================
+--Self JOIN
+"YOU Must Create ManagerId"
+
+Select E.Name as Employee, M.Name as Manager
+FROM tblEmployee E
+Left Join tblEmployee M
+On E.ManagerId = M.EmployeeId
+
+
+Select E.Name as Employee, M.Name as Manager
+FROM tblEmployee E
+Inner Join tblEmployee M
+On E.ManagerId = M.EmployeeId
+
+
+Select E.Name as Employee, M.Name as Manager
+FROM tblEmployee E
+CROSS Join tblEmployee M

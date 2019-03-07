@@ -1,0 +1,505 @@
+SQL Server Functions
+
+SQL Server String Functions	:
+ASCII	::	Returns the ASCII value for the specific character
+ASCII(character)
+SELECT ASCII(CustomerName) AS NumCodeOfFirstChar FROM Customers;
+SELECT ASCII('BCD') //ONLY FOR B
+
+CHAR	::	Returns the character based on the ASCII code
+CHAR(code)
+SELECT CHAR(65) AS CodeToCharacter;
+
+CHARINDEX	::	Returns the position of a substring in a string
+CHARINDEX(substring,  string, start)
+SELECT  CHARINDEX('t', 'Customer') AS MatchPosition;
+SELECT CHARINDEX('mer', 'Customer', 3) AS MatchPosition;
+
+CONCAT	::	Adds two or more strings together
+CONCAT(string1,  string2, ...., string_n)
+SELECT  CONCAT('W3Schools', '.com');
+SELECT  CONCAT('SQL', ' ', 'is', ' ', 'fun!');
+
+Concat with +	::	Adds two or more strings together
+string1 + string2 + string_n
+SELECT  'W3Schools' + '.com';
+SELECT  'SQL' + ' ' + 'is' + ' ' + 'fun!';
+
+CONCAT_WS	::	Adds two or more strings together with a separator
+CONCAT_WS(separator, string1,  string2, ...., string_n)
+SELECT  CONCAT_WS('.', 'www', 'W3Schools', 'com');
+SELECT  CONCAT_WS('-', 'SQL', ' is', ' fun!');
+
+DATALENGTH	::	Returns the number of bytes used to represent an expression
+DATALENGTH(expression)
+SELECT  DATALENGTH('W3Schools.com');
+SELECT  DATALENGTH('   W3Schools.com   ');
+SELECT  DATALENGTH('2017-08');
+
+DIFFERENCE	::	Compares two SOUNDEX values, and returns an integer value
+DIFFERENCE(expression, expression)
+SELECT DIFFERENCE('Juice', 'Jucy');
+SELECT DIFFERENCE('Juice', 'Banana');
+
+FORMAT	::	Formats a value with the specified format
+FORMAT(value, format,  culture)
+SELECT  FORMAT('123456789', '##-##-#####');
+SELECT  FORMAT('10/01/2018', 'MMMM DD, yyyy');
+
+LEFT	::	Extracts a number of characters from a string (starting from left)
+LEFT(string, number_of_chars)
+SELECT LEFT('SQL Tutorial', 3) AS ExtractString;
+SELECT LEFT(CustomerName, 5) AS ExtractString FROM Customers;
+SELECT LEFT('SQL Tutorial', 100) AS ExtractString;
+Select LEFT('ABCDE', 3) // ABC
+Select RIGHT('ABCDE', 3) // CDE
+
+LEN	::	Returns the length of a string
+LEN(string)
+SELECT  LEN('W3Schools.com');
+SELECT  LEN('   W3Schools.com   ');
+
+LOWER	::	Converts a string to lower-case
+LOWER(text)
+SELECT LOWER('SQL Tutorial is FUN!');
+
+LTRIM	::	Removes leading spaces from a string
+LTRIM(string)
+SELECT LTRIM('     SQL Tutorial') AS LeftTrimmedString;
+
+NCHAR	::	Returns the Unicode character based on the number code
+NCHAR(number_code)
+SELECT NCHAR(65) AS NumberCodeToUnicode;
+
+PATINDEX	::	Returns the position of a pattern in a string
+PATINDEX(%pattern%, string)
+SELECT PATINDEX('%schools%', 'W3Schools.com');
+SELECT PATINDEX('%[z]%', 'W3Schools.com');
+SELECT PATINDEX('%[ol]%', 'W3Schools.com');
+      •% - Match any string of any length (including 0 length)
+      •_ - Match one single character
+      •[] - Match any characters in the brackets, e.g. [xyz]
+      •[^] - Match any character not in the brackets, e.g. [^xyz]
+
+QUOTENAME	::	Returns a Unicode string with delimiters added to make the string a valid SQL Server delimited identifier
+QUOTENAME(string, quote_char)
+SELECT QUOTENAME('abcdef');
+SELECT QUOTENAME('abcdef', '()');
+
+REPLACE	::	Replaces all occurrences of a substring within a string, with a new substring
+REPLACE(string, old_string, new_string)
+SELECT REPLACE('SQL Tutorial', 'T', 'M');
+SELECT REPLACE('SQL Tutorial', 'SQL', 'HTML');
+SELECT REPLACE('ABC ABC ABC', 'a', 'c');
+
+REPLICATE	::	Repeats a string a specified number of times
+REPLICATE(string, integer)
+SELECT REPLICATE(CustomerName, 2) FROM Customers;
+SELECT REPLICATE('SQL Tutorial', 5);
+
+REVERSE	::	Reverses a string and returns the result
+REVERSE(string)
+SELECT REVERSE('SQL Tutorial');
+SELECT REVERSE(CustomerName) FROM Customers;
+
+RIGHT	::	Extracts a number of characters from a string (starting from right)
+RIGHT(string, number_of_chars)
+SELECT RIGHT('SQL Tutorial', 3) AS ExtractString;
+SELECT RIGHT('SQL Tutorial', 100) AS ExtractString;
+SELECT RIGHT(CustomerName, 5) AS ExtractString FROM Customers;
+Select RIGHT('ABCDE', 3) // CDE
+Select LEFT('ABCDE', 3) // ABC
+
+RTRIM	::	Removes trailing spaces from a string
+RTRIM(string)
+SELECT RTRIM('SQL Tutorial     ') AS RightTrimmedString;
+
+SOUNDEX	::	Returns a four-character code to evaluate the similarity of two strings
+SOUNDEX(expression)
+SELECT SOUNDEX('Juice'), SOUNDEX('Jucy');
+
+SPACE	::	Returns a string of the specified number of space characters
+SPACE(number)
+SELECT SPACE(10);
+
+STR	::	Returns a number as string
+STR(number, length, decimals)
+SELECT STR(185);
+SELECT STR(185.5);
+SELECT STR(185.476, 6, 2);
+
+STUFF	::	Deletes a part of a string and then inserts another part into the string, starting at a specified position
+STUFF(string, start, length, new_string)
+SELECT STUFF('SQL Tutorial', 1, 3, 'HTML');
+SELECT STUFF('SQL Tutorial!', 13, 1, ' is fun!');
+
+SUBSTRING	::	Extracts some characters from a string
+SUBSTRING(string, start, length)
+SELECT SUBSTRING('SQL Tutorial', 1, 3) AS ExtractString;
+
+TRANSLATE	::	Returns the string from the first argument after the characters specified in the second argument are translated into the characters specified in the third argument.
+TRANSLATE(string, characters, translations)
+SELECT TRANSLATE('Monday', 'Monday', 'Sunday'); // Results in Sunday
+SELECT TRANSLATE('3*[2+1]/{8-4}', '[]{}', '()()'); // Results in 3*(2+1)/(8-4)
+
+TRIM	::	Removes leading and trailing spaces (or other specified characters) from a string
+TRIM([characters FROM ]string)
+SELECT TRIM('     SQL Tutorial!     ') AS TrimmedString;
+SELECT TRIM('#! ' FROM '    #SQL Tutorial!    ') AS  TrimmedString;
+
+UNICODE	::	Returns the Unicode value for the first character of the input expression
+UNICODE(character_expression)
+SELECT UNICODE('Atlanta');
+SELECT UNICODE(CustomerName) AS UnicodeOfFirstChar FROM Customers;
+
+UPPER	::	Converts a string to upper-case
+UPPER(text)
+SELECT UPPER('SQL Tutorial is FUN!');
+SELECT UPPER(CustomerName) AS UppercaseCustomerName FROM Customers;
+===================================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+===================================================================================================================================================================================
+SQL Server Math/Numeric Functions	::
+ABS	::	Returns the absolute value of a number
+ABS(number)
+SELECT Abs(-243.5) AS AbsNum;
+
+ACOS	::	Returns the arc cosine of a number
+ACOS(number)
+SELECT ACOS(0.25);
+
+ASIN	::	Returns the arc sine of a number
+ASIN(number)
+SELECT ASIN(0.25);
+
+ATAN	::	Returns the arc tangent of a number
+ATAN(number)
+SELECT ATAN(2.5);
+
+ATN2	::	Returns the arc tangent of two numbers
+ATN2(a, b)
+SELECT ATN2(0.50, 1);
+SELECT ATN2(-0.8, 2);
+
+AVG	::	Returns the average value of an expression
+AVG(expression)
+SELECT AVG(Price) AS  AveragePrice FROM Products;
+SELECT * FROM Products WHERE Price > (SELECT AVG(Price) FROM Products);
+
+CEILING	::	Returns the smallest integer value that is >= a number
+CEILING(number)
+SELECT CEILING(25.75) AS CeilValue;
+SELECT CEILING(25) AS CeilValue;
+
+COUNT	::	Returns the number of records returned by a select query
+COUNT(expression)
+SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;
+
+COS	::	Returns the cosine of a number
+COS(number)
+SELECT COS(2);
+SELECT COS(PI());
+
+COT	::	Returns the cotangent of a number
+COT(number)
+SELECT COT(6);
+
+DEGREES	::	Converts a value in radians to degrees
+DEGREES(number)
+SELECT DEGREES(1.5);
+
+EXP	::	Returns e raised to the power of a specified number
+EXP(number)
+SELECT EXP(1);
+SELECT EXP(2);
+
+FLOOR	::	Returns the largest integer value that is <= to a number
+FLOOR(number)
+SELECT FLOOR(25.75) AS FloorValue;
+
+LOG	::	Returns the natural logarithm of a number, or the logarithm of a number to a specified base
+LOG(number, base) -- Syntax for SQL Server
+LOG(number) -- Syntax for Azure SQL Database, Azure SQL Data Warehouse, Parallel Data Warehouse
+SELECT LOG(2);
+SELECT LOG(2, 4);
+
+LOG10	::	Returns the natural logarithm of a number to base 10
+LOG10(number)
+SELECT LOG10(2);
+SELECT LOG10(4.5);
+
+MAX	::	Returns the maximum value in a set of values
+MAX(expression)
+SELECT MAX(Price) AS LargestPrice FROM Products;
+
+MIN	::	Returns the minimum value in a set of values
+MIN(expression)
+SELECT MIN(Price) AS  SmallestPrice FROM Products;
+
+PI	::	Returns the value of PI
+PI()
+SELECT PI()
+
+POWER	::	Returns the value of a number raised to the power of another number
+POWER(a, b)
+SELECT POWER(4, 2);
+SELECT POWER(8, 3);
+
+RADIANS	::	Converts a degree value into radians
+RADIANS(number)
+SELECT RADIANS(180);
+SELECT RADIANS(-45);
+
+RAND	::	Returns a random number
+RAND(seed)
+SELECT RAND();
+SELECT RAND(6);
+SELECT RAND()*(10-5)+5;
+SELECT FLOOR(RAND()*(10-5+1)+5);
+
+ROUND	::	Rounds a number to a specified number of decimal places
+ROUND(number, decimals, operation)
+SELECT ROUND(235.415, 2) AS RoundValue;
+SELECT ROUND(235.415, 2, 1) AS RoundValue;
+SELECT ROUND(235.415, -1) AS RoundValue;
+
+SIGN	::	Returns the sign of a number
+          •If number > 0, it returns 1
+          •If number = 0, it returns 0
+          •If number < 0, it returns -1
+SIGN(number)
+SELECT SIGN(-12);
+SELECT SIGN(255.5);
+
+SIN	::	Returns the sine of a number
+SIN(number)
+SIN(number)
+SELECT SIN(2);
+SELECT SIN(-1);
+
+SQRT	::	Returns the square root of a number
+SQRT(number)
+SELECT SQRT(64);
+
+SQUARE	::	Returns the square root of a number
+SQUARE(number)
+SELECT SQUARE(64);
+
+SUM	::	Calculates the sum of a set of values
+SUM(expression)
+SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
+
+TAN	::	Returns the tangent of a number
+TAN(number)
+SELECT TAN(1.75);
+==================================================================================================================================================================================
+
+
+
+
+
+
+===================================================================================================================================================================================
+SQL Server Date Functions	:
+CURRENT_TIMESTAMP	::	Returns the current date and time
+CURRENT_TIMESTAMP
+SELECT  CURRENT_TIMESTAMP;
+
+DATEADD	::	Adds a time/date interval to a date and then returns the date
+DATEADD(interval, number, date)
+SELECT DATEADD(year, 1, '2017/08/25') AS DateAdd;
+SELECT DATEADD(month, 2, '2017/08/25') AS DateAdd;
+SELECT DATEADD(month, -2, '2017/08/25') AS DateAdd;
+SELECT LastName,  BirthDate, DATEADD(year, 18, BirthDate) AS DateAdd FROM Employees;
+                      •year, yyyy, yy = Year
+                      •quarter, qq, q = Quarter
+                      •month, mm, m = month
+                      •dayofyear = Day of the year
+                      •day, dy, y = Day
+                      •week, ww, wk = Week
+                      •weekday, dw, w = Weekday
+                      •hour, hh = hour
+                      •minute, mi, n = Minute
+                      •second, ss, s = Second
+                      •millisecond, ms = Millisecond
+
+DATEDIFF	::	Returns the difference between two dates
+DATEDIFF(interval, date1, date2)
+SELECT DATEDIFF(year, '2017/08/25', '2011/08/25') AS DateDiff;
+SELECT DATEDIFF(month, '2017/08/25',  '2011/08/25') AS DateDiff;
+SELECT DATEDIFF(hour, '2017/08/25 07:00', '2017/08/25 12:45') AS DateDiff;
+
+
+DATEFROMPARTS	::	Returns a date from the specified parts (year, month, and day values)
+DATEFROMPARTS(year, month, day)
+              year Required. Specifies a year (4 digits)
+              month Required. Specifies a month (from 1 to 12)
+              day Required. Specifies a day (from 1 to 31)
+SELECT DATEFROMPARTS(2018, 10, 31) AS DateFromParts;
+
+DATENAME	::	Returns a specified part of a date (as string)
+DATENAME(interval, date)
+SELECT DATENAME(year, '2017/08/25') AS DatePartString;
+SELECT DATENAME(yy, '2017/08/25') AS DatePartString;
+SELECT DATENAME(month, '2017/08/25') AS DatePartString;
+SELECT DATENAME(hour, '2017/08/25 08:36') AS DatePartString;
+
+DATEPART	::	Returns a specified part of a date (as integer)
+DATEPART(interval, date)
+SELECT DATEPART(year, '2017/08/25') AS DatePartInt;
+SELECT DATEPART(yy, '2017/08/25') AS DatePartInt;
+SELECT DATEPART(month, '2017/08/25') AS DatePartInt;
+
+DAY	::	Returns the day of the month for a specified date
+DAY(date)
+SELECT DAY('2017/08/25') AS DayOfMonth;
+SELECT DAY('2017/08/13 09:08') AS DayOfMonth;
+
+GETDATE	::	Returns the current database system date and time
+GETDATE()
+SELECT  GETDATE();
+
+GETUTCDATE	::	Returns the current database system UTC date and time
+GETUTCDATE()
+SELECT  GETUTCDATE();
+
+ISDATE	::	Checks an expression and returns 1 if it is a valid date, otherwise 0
+ISDATE(expression)
+SELECT ISDATE('2017-08-25');
+SELECT ISDATE('2017');
+SELECT ISDATE('Hello world!');
+
+MONTH	::	Returns the month part for a specified date (a number from 1 to 12)
+MONTH(date)
+SELECT MONTH('2017/08/25') AS Month;
+
+SYSDATETIME	::	Returns the date and time of the SQL Server
+SYSDATETIME()
+SELECT SYSDATETIME() AS SysDateTime;
+
+YEAR	::	Returns the year part for a specified date
+YEAR(date)
+SELECT YEAR('2017/08/25') AS Year;
+SELECT YEAR('1998/05/25 09:08') AS Year;
+
+===================================================================================================================================================================================
+
+
+
+
+
+===================================================================================================================================================================================
+SQL Server Advanced Functions	::
+
+CAST	::	Converts a value (of any type) into a specified datatype
+CAST(expression AS datatype(length))
+SELECT CAST(25.65 AS int);
+SELECT CAST(25.65 AS varchar);
+
+COALESCE	::	Returns the first non-null value in a list
+COALESCE(val1,  val2, ...., val_n)
+SELECT  COALESCE(NULL, NULL, NULL, 'W3Schools.com', NULL, 'Example.com');
+SELECT  COALESCE(NULL, 1, 2, 'W3Schools.com');
+
+CONVERT	::	Converts a value (of any type) into a specified datatype
+CONVERT(data_type(length), expression, style)
+SELECT CONVERT(int, 25.65);
+SELECT CONVERT(varchar, 25.65);
+SELECT CONVERT(varchar,  '2017-08-25', 101);
+
+CURRENT_USER	::	Returns the name of the current user in the SQL Server database
+CURRENT_USER
+SELECT CURRENT_USER;
+
+ISNULL	::	Return a specified value if the expression is NULL, otherwise return the expression
+ISNULL(expression, value)
+SELECT ISNULL(NULL, 'W3Schools.com');
+SELECT ISNULL(NULL, 500);
+
+ISNUMERIC	::	Tests whether an expression is numeric
+ISNUMERIC(expression)
+SELECT ISNUMERIC(4567);
+SELECT ISNUMERIC('4567');
+SELECT ISNUMERIC('Hello world!');
+SELECT ISNUMERIC(20*3);
+SELECT ISNUMERIC('2017-08-25');
+
+NULLIF	::	Returns NULL if two expressions are equal
+NULLIF(expr1, expr2)
+SELECT NULLIF(25, 25);
+SELECT NULLIF('Hello', 'world');
+SELECT NULLIF('Hello', 'Hello');
+
+SESSION_USER	::	Returns the name of the current user in the SQL Server database
+SESSION_USER
+SELECT SESSION_USER;
+
+SESSIONPROPERTY	::	Returns the session settings for a specified option
+SESSIONPROPERTY(option)
+SELECT SESSIONPROPERTY('ANSI_NULLS');
+                        •ANSI_NULLS
+                        •ANSI_PADDING
+                        •ANSI_WARNINGS
+                        •ARITHABORT
+                        •CONCAT_NULL_YIELDS_NULL
+                        •NUMERIC_ROUNDABOUT
+                        •QUOTED_IDENTIFIER
+
+
+SYSTEM_USER	::	Returns the login name for the current user
+SYSTEM_USER
+SELECT SYSTEM_USER;
+
+USER_NAME	::	Returns the database user name based on the specified id
+USER_NAME(id_number)
+SELECT USER_NAME();
+SELECT USER_NAME(1);
+
+
+
+------------------------------------
+style:
+style Optional.
+The format used to convert between data types, such as a date or string format.
+Can be one of the following values:
+
+Converting datetime to character:
+0  100 mon dd yyyy hh:miAM/PM Default
+1  101 mm/dd/yyyy  US
+2  102 yyyy.mm.dd ANSI
+3  103 dd/mm/yyyy British/French
+4  104 dd.mm.yyyy German
+5  105 dd-mm-yyyy Italian
+6  106 dd mon yyyy -
+7  107 Mon dd, yyyy -
+8  108 hh:mm:ss -
+9  109 mon dd yyyy hh:mi:ss:mmmAM (or PM) Default + millisec
+10 110 mm-dd-yyyy USA
+11 111 yyyy/mm/dd Japan
+12 112 yyyymmdd ISO
+13 113 dd mon yyyy hh:mi:ss:mmm Europe (24 hour clock)>
+14 114 hh:mi:ss:mmm 24 hour clock
+20 120 yyyy-mm-dd hh:mi:ss ODBC canonical (24 hour clock)
+21 121 yyyy-mm-dd hh:mi:ss.mmm ODBC canonical (24 hour clock)
+   126 yyyy-mm-ddThh:mi:ss.mmm ISO8601
+   127 yyyy-mm-ddThh:mi:ss.mmmZ ISO8601 (with time zone Z)
+   130 dd mon yyyy hh:mi:ss:mmmAM Hijiri
+   131 dd/mm/yy hh:mi:ss:mmmAM Hijiri
+
+Converting float to real:
+0 Maximum 6 digits (default)
+1 8 digits
+2 16 digits
+
+Converting money to character:
+0 No comma delimiters, 2 digits to the right of decimal
+1 Comma delimiters, 2 digits to the right of decimal
+2  No comma delimiters, 4 digits to the right of decimal

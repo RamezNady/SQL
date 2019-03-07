@@ -1,0 +1,37 @@
+SUBSTRING('Expression', 'Start', 'Length')
+Select SUBSTRING('John@bbb.com',6, 7)
+Select SUBSTRING('John@bbb.com',6, 100)
+Select SUBSTRING('John@bbb.com',
+(CHARINDEX('@', 'John@bbb.com') + 1,
+7
+)
+-----------------------------------------------------
+Select SUBSTRING('John@bbb.com',
+(CHARINDEX('@', 'John@bbb.com') + 1),
+(LEN('John@bbb.com') - CHARINDEX('@','John@bbb.com'))
+)
+Output: bbb.com
+-----------------------------------------------------
+Select
+SUBSTRING(Email,
+CHARINDEX('@', Email) + 1,
+LEN(Email) - CHARINDEX('@', Email)
+) as EmailDomain
+from [dbo].[tblPerson]
+-----------------------------------------------------
+Select
+SUBSTRING(Email,
+CHARINDEX('@', Email) + 1,
+LEN(Email) - CHARINDEX('@', Email)
+) as EmailDomain,
+COUNT(Email) as Total
+from [dbo].[tblPerson]
+Group By
+SUBSTRING(Email,
+CHARINDEX('@', Email) + 1,
+LEN(Email) - CHARINDEX('@', Email)
+)
+
+
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------

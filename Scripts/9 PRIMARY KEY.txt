@@ -1,0 +1,40 @@
+--PRIMARY KEY
+CREATE TABLE Persons (
+    ID int NOT NULL PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+
+--PRIMARY KEY IDENTITY
+CREATE TABLE Persons (
+    ID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName nvarchar(255),
+    Age int
+);
+
+
+
+
+SET IDENTITY_INSERT Persons ON
+Insert into Persons(ID, LastName) VALUES(4, 'John')
+SET IDENTITY_INSERT Persons OFF
+
+DELETE FROM Persons
+DBCC CHECKIDENT(Persons, RESEED, 0)
+
+
+
+
+
+--Return Last PRIMARY KEY IDENTITY Generated
+Select SCOPE_IDENTITY()
+the same session (Connection) and in the same scope (in the same Stored procedure, function, trigger)
+
+Select @@IDENTITY
+the same session (Connection) and in across any scope (in any Stored procedure, function, trigger)
+
+Select IDENT_CURRENT('tblPerson')
+Across Any (Connection) and in Across Any scope (in any Stored procedure, function, trigger)

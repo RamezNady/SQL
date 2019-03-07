@@ -1,0 +1,202 @@
+
+SELECT
+--FROM
+SELECT CustomerName, City FROM Customers;
+SELECT * FROM Customers;
+
+--DELETE
+DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
+DELETE FROM Customers;
+
+--WHERE
+SELECT * FROM Customers
+WHERE Country='Mexico';
+
+SELECT * FROM Customers
+WHERE CustomerID=1;
+
+     Operators:-
+     = Equal
+     <> != Not equal. Note: In some versions of SQL this operator may be written as !=
+     > Greater than
+     < Less than
+     >= Greater than or equal
+     <= Less than or equal
+     BETWEEN Between a certain range
+     LIKE Search for a pattern
+     IN To specify multiple possible values for a column
+
+--SELECT
+SELECT CustomerName, City FROM Customers;
+SELECT * FROM Customers;
+
+--SELECT DISTINCT
+SELECT DISTINCT Country FROM Customers;
+
+--AS
+SELECT CustomerID AS ID, CustomerName AS Customer
+FROM Customers;
+
+SELECT CustomerName AS Customer, ContactName AS [Contact Person]
+FROM Customers;
+
+SELECT CustomerName, Address + ', ' + PostalCode + ' ' + City + ', ' + Country AS Address
+FROM Customers;
+
+SELECT CustomerName, CONCAT(Address,', ',PostalCode,', ',City,', ',Country) AS Address
+FROM Customers;
+
+SELECT o.OrderID, o.OrderDate, c.CustomerName
+FROM Customers AS c, Orders AS o
+WHERE c.CustomerName="Around the Horn" AND c.CustomerID=o.CustomerID;
+
+
+--TOP
+SELECT TOP 3 * FROM Customers;
+SELECT TOP 50 PERCENT * FROM Customers;
+
+--LIMIT
+SELECT * FROM Customers
+LIMIT 3;
+
+--ROWNUM
+SELECT * FROM Customers
+WHERE ROWNUM <= 3;
+
+--NOT
+SELECT * FROM Customers
+WHERE  NOT Country='Germany';
+
+--IS NULL
+SELECT CustomerName, ContactName, Address
+FROM Customers
+WHERE Address  IS NOT NULL;
+
+--IS NOT NULL
+SELECT CustomerName, ContactName, Address
+FROM Customers
+WHERE Address  IS NOT NULL;
+
+--OR
+SELECT * FROM Customers
+WHERE City='Berlin' OR City='München';
+
+--AND
+SELECT * FROM Customers
+WHERE Country='Germany' AND City='Berlin';
+
+--IN
+SELECT * FROM Customers
+WHERE Country IN ('Germany', 'France', 'UK');
+
+SELECT * FROM Customers
+WHERE Country NOT IN ('Germany', 'France', 'UK');
+
+SELECT * FROM Customers
+WHERE Country IN (SELECT Country FROM Suppliers);
+
+--BETWEEN
+SELECT * FROM Products
+WHERE Price BETWEEN 10 AND 20;
+
+SELECT * FROM Products
+WHERE Price NOT BETWEEN 10 AND 20;
+
+SELECT * FROM Products
+WHERE ProductName BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni'
+ORDER BY ProductName;
+
+--EXISTS
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM  Products WHERE SupplierId = Suppliers.supplierId AND Price < 20);
+
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM  Products WHERE SupplierId = Suppliers.supplierId AND Price = 22);
+
+--ALL
+SELECT ProductName
+FROM Products
+WHERE ProductID = ALL (SELECT ProductID FROM OrderDetails WHERE Quantity = 10);
+
+--ANY
+SELECT ProductName
+FROM Products
+WHERE ProductID = ANY (SELECT ProductID FROM OrderDetails WHERE Quantity = 10);
+
+SELECT ProductName
+FROM Products
+WHERE ProductID = ANY (SELECT ProductID FROM OrderDetails WHERE Quantity > 99);
+
+
+--LIKE
+      •% - Represents zero, one, or multiple characters
+      •_ - Represents a single character (MS Access uses a question mark (?) instead)
+      •[ETN] - Represents any characters in The [] - E or T or N -
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a%';
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%a';
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%or%';
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a_%_%';
+
+Select * FROM Customers
+where Email LIKE '[ETN]%'
+
+Select * FROM Customers
+where Email LIKE '[^ETN]%'
+
+--ORDER BY
+SELECT * FROM Customers
+ORDER BY CustomerName;
+
+--ASC
+SELECT * FROM Customers
+ORDER BY CustomerName ASC;
+
+--DESC
+SELECT * FROM Customers
+ORDER BY CustomerName DESC;
+
+
+--SELECT INTO
+SELECT * INTO CustomersBackup2017
+FROM Customers;
+
+SELECT * INTO CustomersBackup2017 IN 'Backup.mdb'
+FROM Customers;
+
+SELECT CustomerName, ContactName INTO CustomersBackup2017
+FROM Customers;
+
+SELECT * INTO CustomersGermany
+FROM Customers
+WHERE Country = 'Germany';
+
+SELECT Customers.CustomerName, Orders.OrderID
+INTO CustomersOrderBackup2017
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+
+--CASE
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN "The quantity is greater than 30"
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END
+FROM OrderDetails;
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);

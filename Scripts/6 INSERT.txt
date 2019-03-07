@@ -1,0 +1,27 @@
+
+INSERT:
+--VALUES
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway');
+
+INSERT INTO Customers (CustomerName, City, Country)
+VALUES ('Cardinal', 'Stavanger', 'Norway');
+
+INSERT INTO Customers (CustomerName, City, Country)
+VALUES
+('Cardinal', 'Stavanger1', 'Norway1'),
+('Cardina2', 'Stavanger2', 'Norway2'),
+('Cardina3', 'Stavanger3', 'Norway3'),
+('Cardina4', 'Stavanger4', 'Norway4');
+
+
+--INSERT INTO SELECT
+INSERT INTO Customers (CustomerName,  City, Country)
+SELECT SupplierName, City, Country FROM Suppliers;
+
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode,  Country)
+SELECT SupplierName, ContactName, Address, City, PostalCode,  Country FROM Suppliers;
+
+INSERT INTO Customers (CustomerName,  City, Country)
+SELECT SupplierName, City, Country FROM Suppliers
+WHERE Country='Germany';

@@ -1,0 +1,65 @@
+
+ALTER and CONSTRAINT
+
+--ADD a PRIMARY KEY Constraint
+ALTER TABLE Persons
+ADD CONSTRAINT PK_Person
+PRIMARY KEY (ID,LastName);
+
+--DROP a PRIMARY KEY Constraint
+ALTER TABLE Persons
+DROP CONSTRAINT PK_Person;
+
+--ADD a FOREIGN KEY Constraint
+ALTER TABLE Orders
+ADD CONSTRAINT FK_PersonOrder
+FOREIGN KEY (PersonID)
+REFERENCES Persons(PersonID);
+
+--DROP a FOREIGN KEY Constraint
+ALTER TABLE Orders
+DROP CONSTRAINT FK_PersonOrder;
+
+
+--ADD DEFAULT Constraint
+ALTER TABLE Persons
+ADD CONSTRAINT df_City
+DEFAULT 'Sandnes' FOR City;
+
+ALTER TABLE Persons
+ADD CONSTRAINT DF_tblPerson_GenderId
+DEFAULT 1 FOR GenderId;
+
+--DROP a DEFAULT Constraint
+ALTER TABLE Persons
+ALTER COLUMN City DROP DEFAULT;
+
+ALTER TABLE Persons
+ALTER COLUMN GenderId DROP DEFAULT;
+
+--ADD a CHECK Constraint
+ALTER TABLE Persons
+ADD CONSTRAINT CHK_PersonAge
+CHECK (Age>=18 AND City='Sandnes');
+
+--DROP a CHECK Constraint
+ALTER TABLE Persons
+DROP CONSTRAINT CHK_PersonAge;
+
+--ADD a CHECK Constraint
+ALTER TABLE Persons
+ADD CHECK (Age > 0 AND Age < 150);
+
+--ADD NOT NULL Constraint
+ALTER TABLE Persons
+MODIFY Age int NOT NULL;
+
+====================================================================================================
+
+CONSTRAINT in Create Tables
+
+CREATE TABLE Persons (
+    Age int,
+    City varchar(255),
+    CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Sandnes')
+);

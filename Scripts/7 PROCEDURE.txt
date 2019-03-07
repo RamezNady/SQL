@@ -1,0 +1,161 @@
+1. Execution plan retention and reusability.
+2. Reduces network traffic.
+3. Code reusability and better maintainability.
+4. Better Security.
+5. Avoids SQL Injection attack.
+-----------------------------------------------------------------------------------
+--Declaring
+Create Procedure spGetEmployeesByGenderAndDepartment
+@Gender nvarchar(50),
+@DepartmentId int
+as
+Begin
+  Select Name, Gender from tblEmployee
+  Where Gender = @Gender and DepartmentId = @DepartmentId
+End
+
+
+--Calling
+spGetEmployeesByGenderAndDepartment 'Male',1
+spGetEmployeesByGenderAndDepartment @DepartmentId=1,@Gender='Male'
+EXECUTE spGetEmployeesByGenderAndDepartment @DepartmentId=1,@Gender='Male'
+EXE     spGetEmployeesByGenderAndDepartment @DepartmentId=1,@Gender='Male'
+
+
+--Editing
+Alter Procedure spGetEmployeesByGenderAndDepartment
+@Gender nvarchar(50),
+@DepartmentId int
+as
+Begin
+  Select Name, Gender from tblEmployee
+  Where Gender = @Gender and DepartmentId = @DepartmentId
+  order by Name
+End
+
+Alter Procedure spGetEmployeesByGenderAndDepartment
+@Gender nvarchar(50),
+@DepartmentId int
+WITH ENCRYPTION
+as
+Begin
+  Select Name, Gender from tblEmployee
+  Where Gender = @Gender and DepartmentId = @DepartmentId
+End
+
+
+--Showing Body
+sp_help 	spGetEmployeesByGenderAndDepartment
+sp_helptext spGetEmployeesByGenderAndDepartment
+sp_depends  spGetEmployeesByGenderAndDepartment
+
+sp_help 	[tblEmployee]
+sp_helptext [tblEmployee] "error"
+sp_depends 	[tblEmployee]
+
+
+
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+--OUTPUT
+Create Procedure spGetEmployeeCountByGender
+@Gender nvarchar(20),
+@EmployeeCount int Output
+as
+Begin
+ Select @EmployeeCount = COUNT(Id)
+ from tblEmployee
+ where Gender = @Gender
+End
+
+
+--Calling
+Declare @EmployeeTotal int
+Execute spGetEmployeeCountByGender 'Female', @EmployeeTotal
+Print @EmployeeTotal
+
+Declare @EmployeeTotal int
+Execute spGetEmployeeCountByGender 'Female', @EmployeeTotal output
+if(@EmployeeTotal is null)
+ Print '@EmployeeTotal is null'
+else
+ Print '@EmployeeTotal is not null'
+
+Declare @EmployeeTotal int
+Execute spGetEmployeeCountByGender @EmployeeCount = @EmployeeTotal OUT, @Gender = 'Male'
+Print @EmployeeTotal
+
+
+-----------------------------------------------------------------------------------
+--Deleting
+DROP PROCEDURE [dbo].[spGetEmployeesByGenderAndDepartment]
+DROP PROC [dbo].[spGetEmployeesByGenderAndDepartment]
+
+
+
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+--Comparing
+
+--Part 1
+Create Procedure spGetTotalCountOfEmployees1
+@TotalCount int output
+as
+Begin
+ Select @TotalCount = COUNT(ID) from tblEmployee
+End
+
+Declare @TotalEmployees int
+Execute spGetTotalCountOfEmployees1 @TotalEmployees Output
+Select @TotalEmployees
+
+
+--Part 2
+Create Procedure spGetTotalCountOfEmployees2
+as
+Begin
+ return (Select COUNT(ID) from tblEmployee)
+End
+
+Declare @TotalEmployees int
+Execute @TotalEmployees = spGetTotalCountOfEmployees2
+Select @TotalEmployees
+
+------------------------------------------------------------------
+--Comparing 2
+
+--Part 1
+Create Procedure spGetNameById1
+@Id int,
+@Name nvarchar(20) Output
+as
+Begin
+ Select @Name = Name from tblEmployee Where Id = @Id
+End
+
+Declare @EmployeeName nvarchar(20)
+Execute spGetNameById1 3, @EmployeeName out
+Print 'Name of the Employee = ' + @EmployeeName
+
+
+--Part 2
+Create Procedure spGetNameById2
+@Id int
+as
+Begin
+ Return (Select Name from tblEmployee Where Id = @Id)
+End
+
+Declare @EmployeeName nvarchar(20)
+Execute @EmployeeName = spGetNameById2 1
+Print 'Name of the Employee = ' + @EmployeeName
+"error"
+
+------------------------------------------------------------------
+--Result
+------------------------------------------------------------------------------------
+Return Staus Value:              |  Output Parameters:
+Only Integer Datatype            |  Any Datatype
+Only one value                   |  More than one value
+Use to convey success or failure |  Use to return values like name, count etc..
+------------------------------------------------------------------------------------

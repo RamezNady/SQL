@@ -1,0 +1,103 @@
+
+--GROUP BY
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country;
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+Select Name,GenderId,SUM(Age) FROM Person
+GROUP BY Name,GenderId
+
+Select Name,GenderId,SUM(Age) FROM Person
+GROUP BY Name,GenderId
+ORDER By Name
+
+
+
+Select Name,SUM(Age) FROM Person
+GROUP BY Name
+"ERROR"
+
+Select Name,SUM(Age) FROM Person
+"ERROR"
+
+
+--HAVING
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 5;
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID)  > 5
+ORDER BY COUNT(CustomerID) DESC;
+
+
+
+
+
+-------------------------------------------------------
+
+"Filtering rows using WHERE clause, before aggrgations take place"
+Select Name,GenderId,SUM(Age),Count(ID)
+FROM Person
+WHERE GenderId = 1
+Group BY Name, GenderId
+
+Select Name,GenderId,SUM(Age),Count(ID)
+FROM Person
+WHERE SUM(Age) > 40
+Group BY Name, GenderId
+"ERROR"
+
+
+"Filtering groups using HAVING clause, after all aggrgations take place"
+Select Name,GenderId,SUM(Age),Count(ID)
+FROM Person
+Group BY Name, GenderId
+HAVING GenderId = 1
+
+Select Name,GenderId,SUM(Age),Count(ID)
+FROM Person
+Group BY Name, GenderId
+HAVING SUM(Age) > 40
+
+Select City, SUM(Salary) as TotalSalary
+FROM Employee
+WHERE Gender = 'Male'
+group by City
+HAVING City = 'London'
+
+
+
+
+====================================================================================================
+"UNION removes duplicate rows, UNION ALL does not."
+"So UNION Take Time more than UNION ALL."
+
+--UNION
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+
+--UNION ALL
+SELECT City FROM Customers
+UNION ALL
+SELECT City FROM Suppliers
+ORDER BY City;
+
+
+SELECT City FROM Customers
+ORDER BY City;
+UNION ALL
+SELECT City FROM Suppliers
+UNION ALL
+SELECT City FROM Shippers
+"ERROR"

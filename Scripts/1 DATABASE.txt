@@ -1,0 +1,36 @@
+
+DATABASE:
+
+--CREATE DATABASE
+CREATE DATABASE testDB;
+
+
+--RENAME DATABASE
+ALTER DATABASE testDB
+MODIFY Name = testDB2;
+
+Execute sp_renameDB 'testDB','testDB2'
+
+
+-- Use Keyword
+Use testDB
+go
+
+
+--DROP DATABASE
+Drop Database [master]
+
+ALTER DATABASE testDB
+Set SINGLE_USER With Rollback Immediate
+
+DROP DATABASE testDB;
+
+
+--BACKUP DATABASE
+BACKUP DATABASE testDB
+TO DISK = 'D:\backups\testDB.bak';
+
+
+--BACKUP DATABASE testDB
+TO DISK = 'D:\backups\testDB.bak'
+WITH DIFFERENTIAL; A differential back up reduces the back up time (since only the changes are backed up).
